@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Index</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <style>
+      .card {
+        min-height: 400px;
+      }
+
+      .card-text {
+        text-align: left;
+      }
+
+      .content-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80px;
+        text-align: center;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <br />
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/">Home</a>
+              </li>
+            </h5>
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link" href="/tag">Add Tag </a>
+              </li>
+            </h5>
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link" href="/latestbook">Latest Book</a>
+              </li>
+            </h5>
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin">Admin</a>
+              </li>
+            </h5>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container content-center">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <center>
+                {% if book.cover_url == "default.jpg" %}
+                <img
+                  class="card-img-top"
+                  src="https://static-01.daraz.pk/p/9c4bbb21ac32475a2f3d8c55d2b7337d.jpg"
+                />
+                {% elif book.cover_url %}
+                <img class="card-img-top" src="{{ book.cover_url }}" />
+                {% endif %}
+              </center>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <h1 class="card-title">{{ book.title }}</h1>
+              <div class="card-text">
+                <h5 class="card-subtitle mb-2 text-muted">
+                  {{ book.publish_date }}
+                </h5>
+                <h5><strong>Author Name:</strong> {{ book.author_name }}</h5>
+                <h5><strong>Total Pages:</strong> {{ book.page }}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

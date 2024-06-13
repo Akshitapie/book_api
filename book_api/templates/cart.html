@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Index</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+</head>
+<style>
+  .cart-icon {
+    margin-right: 1400px;
+  }
+
+  .form-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  .show {
+    display: block;
+  }
+</style>
+
+<body>
+  <br />
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+        <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+          <h5>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/">Home</a>
+            </li>
+          </h5>
+
+          <h5>
+            <li class="nav-item">
+              <a class="nav-link" href="/latestbook">Latest Book</a>
+            </li>
+          </h5>
+          <h5>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </h5>
+          <h5>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">Admin</a>
+            </li>
+          </h5>
+          <h2 style="position: right">
+            <li class="nav-item">
+              <a class="nav-link active" href="/cart">
+                <i class="bi bi-cart cart-icon"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="39" height="40" fill="currentColor" class="bi bi-cart"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                </svg></a>
+            </li>
+          </h2>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container"><br>
+    <h1 class="header" style="text-align: center">Book</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Page</th>
+          <th scope="col">Return Date</th>
+          <th scope="col">Fees</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <h3 style="color: #070b71">Username: {{ request.user.username }}</h3>
+        <br />
+
+        {% for item in cart_items %}
+        <tr>
+          <td>{{ item.book_id.title }}</td>
+          <td>{{ item.book_id.page }}</td>
+          <td>{{ item.return_date }}</td>
+          <td>${{ item.fees }}</td>
+          <td>
+            <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-primary">Remove</a>
+          </td>
+        </tr>
+        {% empty %}
+       <center> <h4>Your cart is empty.</h4></center>
+        {% endfor %} <br>
+      </tbody>
+    </table>
+    <br /><br />
+
+    {% if total_price %}
+    <h5 style="  padding-left: 45px;">You have to pay</h5>
+    <h5 style="  padding-left: 45px;">Price: ₹{{ total_price }}</h5>
+    <form class=" border border-light p-5" action="{% url 'payment_success' %}" method="POST">
+        {% csrf_token %}
+        <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_p4BF3I5vEzR2EV"
+            data-amount="{{payment.fees}}" data-currency="INR" data-order_id="{{payment.id}}" data-buttontext="Pay with Razorpay"
+            data-name="Professional Cipher" data-description="Django and Data Science"
+            data-image="https://example.com/your_logo.jpg" data-prefill.name="PC" data-prefill.email="pc@studygyaan.com"
+            data-them = "blue"></script>
+    </form>
+  </div>
+  {% endif %}
+  </div>
+</body>
+
+</html>

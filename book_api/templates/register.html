@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Userform</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .card {
+        margin-top: 20px;
+      }
+
+      .card-body {
+        padding: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <br />
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+          <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+            </h5>
+
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link active" href="register">Register</a>
+              </li>
+            </h5>
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link" href="login">Login </a>
+              </li>
+            </h5>
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link" href="latestbook">Latest Book</a>
+              </li>
+            </h5>
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link" href="admin">Admin</a>
+              </li>
+            </h5>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h1 class="text-center">User Registration Form</h1>
+              <br />
+              <h5 class="text-success text-center"></h5>
+              <h5 class="text-success text-center" id="success-msg"></h5>
+              <form
+                class="form-with-validation"
+                action="register"
+                method="post"
+              >
+                {% csrf_token %}
+                <div class="form-group row">
+                  <label for="username" class="col-sm-4 col-form-label"
+                    >User Name:</label
+                  >
+                  <div class="col-sm-8">{{ form.username }}</div>
+                  {% if form.username.errors %}
+                  <span class="text-danger">{{ form.username.errors }}</span>
+                  {% endif %}
+                </div>
+                <div class="form-group row">
+                  <label for="password" class="col-sm-4 col-form-label"
+                    >Password:</label
+                  >
+                  <div class="col-sm-8">{{ form.password1 }}</div>
+                  <span class="text-danger">{{ form.password1.errors }}</span>
+                </div>
+                <div class="form-group row">
+                  <label for="password" class="col-sm-4 col-form-label"
+                    >Conform Password:</label
+                  >
+                  <div class="col-sm-8">{{ form.password2 }}</div>
+                  <span class="text-danger">{{ form.password2.errors }}</span>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                    <button
+                      class="btn btn-primary btn-block"
+                      type="submit"
+                      id="submit"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

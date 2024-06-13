@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Index</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.tiny.cloud/1/cgndgswafvzu4hll7h6uajr6jk4ujwcq1wyv53vpup0ajuzc/tinymce/7/tinymce.min.js"
+      referrerpolicy="origin"
+    ></script>
+  </head>
+
+  <body>
+    <br />
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/">Home</a>
+              </li>
+            </h5>
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link active" href="add_book/">Add Book</a>
+              </li>
+            </h5>
+
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link" href="/latestbook">Latest Book</a>
+              </li>
+            </h5>
+            <h5>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin">Admin</a>
+              </li>
+            </h5>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <h1 class="header" style="text-align: center">Add Book</h1>
+      <br />
+      {% if messages %} {% for message in messages %}
+      <div class="alert alert-info">{{message}}</div>
+      {% endfor %} {% endif %}
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" name="title" class="form-control" />
+        </div>
+        <button type="submit">Add Book</button>
+      </form>
+    </div>
+    <script>
+      tinymce.init({
+        selector: "textarea#description",
+        height: 300,
+        plugins: [
+          "advlist autolink lists link image charmap print preview anchor",
+          "searchreplace visualblocks code fullscreen",
+          "insertdatetime media table paste code help wordcount",
+        ],
+        toolbar:
+          "undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+        content_style:
+          "body { font-family: Arial, sans-serif; font-size: 14px }",
+      });
+    </script>
+  </body>
+</html>
