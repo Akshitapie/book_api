@@ -15,7 +15,7 @@ urlpatterns = [
     path("remove/<int:item_id>/", views.remove_from_cart, name="remove_from_cart"),
     path("latestbook", views.latestbook, name="latestbook"),
     path("payment_success/", views.payment_success, name="payment_success"),
-    path("add_book/", views.add_book, name="add_book"),
+    path("add_book", views.add_book, name="add_book"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
