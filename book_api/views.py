@@ -58,7 +58,6 @@ def signout(request):
         return redirect("index")
 
 
-@login_required
 def details(request, id):
     try:
         bookdata = Book.objects.get(id=id)
